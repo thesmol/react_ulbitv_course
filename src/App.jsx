@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import Counter from './components/Counter';
+import ClassCounter from './components/ClassCounter';
 
 function App() {
   const [value, setValue] = useState("Состояние в элементе");
@@ -9,7 +10,7 @@ function App() {
   return (
     <div className='App'>
       <Counter />
-      
+      <ClassCounter />
       <h1>{value}</h1>
       <input
         type='text'
