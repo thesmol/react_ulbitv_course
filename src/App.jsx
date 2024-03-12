@@ -2,8 +2,7 @@
 import { useState } from "react";
 import "./styles/App.css";
 import PostList from "./components/PostList";
-import MyButton from "./components/UI/button/MyButton";
-import MyInput from "./components/UI/input/MyInput";
+import PostForm from "./components/PostForm";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -13,41 +12,15 @@ function App() {
     { id: 4, title: 'JavaScript 4', body: 'lorem ipsum' },
   ]);
 
-  const [post, setPost] = useState({
-    id: '',
-    title: '',
-    body: ''
-  });
-
-  const handleNewPost = (event) => {
-    event.preventDefault();
-
-    setPosts([...posts, { ...post, id: Date.now() }]);
-    setPost({
-      id: '',
-      title: '',
-      body: ''
-    })
+  const createPost = (newPost) => {
+    setPosts([...posts, newPost])
   }
 
   return (
     <div className='App'>
-      <form>
-        {/* управляемый компонент */}
-        <MyInput
-          value={post.title}
-          onChange={event => setPost({ ...post, title: event.target.value })}
-          type="text"
-          placeholder="Заголовок поста"
-        />
-        <MyInput
-          value={post.body}
-          onChange={event => setPost({ ...post, body: event.target.value })}
-          type="text"
-          placeholder="Описание поста"
-        />
-        <MyButton onClick={handleNewPost}>Добавить пост</MyButton>
-      </form>
+      <PostForm
+        create={createPost}
+      />
 
       <PostList
         posts={posts}
