@@ -13,21 +13,21 @@ function App() {
     { id: 4, title: 'JavaScript 4', body: 'lorem ipsum' },
   ]);
 
-  const [title, setTitle] = useState("");
-  const [desctiption, setDesctiption] = useState("");
+  const [post, setPost] = useState({
+    id: '',
+    title: '',
+    body: ''
+  });
 
   const handleNewPost = (event) => {
     event.preventDefault();
 
-    const newPost = {
-      id: Date.now(),
-      title,
-      body: desctiption
-    };
-
-    setPosts([...posts, newPost]);
-    setTitle("");
-    setDesctiption("");
+    setPosts([...posts, { ...post, id: Date.now() }]);
+    setPost({
+      id: '',
+      title: '',
+      body: ''
+    })
   }
 
   return (
@@ -35,14 +35,14 @@ function App() {
       <form>
         {/* управляемый компонент */}
         <MyInput
-          value={title}
-          onChange={event => setTitle(event.target.value)}
+          value={post.title}
+          onChange={event => setPost({ ...post, title: event.target.value })}
           type="text"
           placeholder="Заголовок поста"
         />
         <MyInput
-          value={desctiption}
-          onChange={event => setDesctiption(event.target.value)}
+          value={post.body}
+          onChange={event => setPost({ ...post, body: event.target.value })}
           type="text"
           placeholder="Описание поста"
         />
