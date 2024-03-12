@@ -15,8 +15,8 @@ function App() {
     sort: '',
     query: ''
   });
-
   const [modal, setModal] = useState(false);
+  const [isPostsLoading, setIsPostsLoading] = useState(false);
 
   const sortedAndSearchedPosts = usePost(posts, filter.sort, filter.query);
 
@@ -33,6 +33,7 @@ function App() {
       setIsPostsLoading(false);
     }, 1000);
   }
+
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
   }
@@ -43,15 +44,24 @@ function App() {
 
   return (
     <div className='App'>
-      <MyButton 
-      style = {{ marginTop: '20px'}}
-      onClick = {() => setModal(true)}
-      >
-        Создать пост
-      </MyButton>
+      <div style={{ marginTop: '20px' }}>
+        <MyButton
+          onClick={() => setModal(true)}
+        >
+          Создать пост
+        </MyButton>
+        <MyButton
+          style={{ marginLeft: '20px' }}
+          onClick={fetchPosts}
+        >
+          GET POST
+        </MyButton>
+      </div>
+
+
       <MyModal
-        visible = {modal}
-        setVisible = {setModal}
+        visible={modal}
+        setVisible={setModal}
       >
         <PostForm create={createPost} />
       </MyModal>
@@ -62,12 +72,16 @@ function App() {
         filter={filter}
         setFilter={setFilter}
       />
+      {isPostsLoading
+        ? <h1>Идет загрузка...</h1>
+        : <PostList
+          posts={sortedAndSearchedPosts}
+          remove={removePost}
+          title="Список постов"
+        />
 
-      <PostList
-        posts={sortedAndSearchedPosts}
-        remove={removePost}
-        title="Список постов"
-      />
+      }
+
 
     </div>
   )
