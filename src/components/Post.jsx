@@ -7,12 +7,14 @@ function Post(props) {
         <div className='post'>
             <div className='post__content'>
                 <strong>{props.number}. {props.post.title}</strong>
-                <div>
+                <p style={{ marginTop: '10px' }}>
                     {props.post.body}
-                </div>
+                </p>
             </div>
-            <div className="post__buttons">
-                <MyButton onClick={() => props.remove(props.post)}>
+            <div
+                className="post__buttons">
+                <MyButton
+                    onClick={() => props.remove(props.post)}>
                     Удалить
                 </MyButton>
             </div>
