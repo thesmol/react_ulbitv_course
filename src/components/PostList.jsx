@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 
 
 function PostList({ posts, title, remove }) {
+    if (!posts.length) {
+        return <h2 style={{ textAlign: 'center', marginTop: '20px' }}>Постов не найдено</h2>
+    }
+    
     return (
         <div>
             <h1 style={{
@@ -11,8 +15,8 @@ function PostList({ posts, title, remove }) {
             }}>{title}</h1>
             {posts.map((post, index) =>
                 <Post
-                    remove = {remove}
-                    number = {index + 1}
+                    remove={remove}
+                    number={index + 1}
                     key={post.id}
                     post={post}
                 />
