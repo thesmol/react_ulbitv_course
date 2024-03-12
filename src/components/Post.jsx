@@ -1,4 +1,5 @@
-export default function Post() {
+import PropTypes from 'prop-types';
+
 function Post(props) {
     
     return (
@@ -15,3 +16,13 @@ function Post(props) {
         </div>
     )
 }
+
+Post.propTypes = {
+    post: PropTypes.shape({
+        id: PropTypes.number,
+        title: PropTypes.string,
+        body: PropTypes.string
+    }).isRequired
+};
+
+export default Post;
