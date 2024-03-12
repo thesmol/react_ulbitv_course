@@ -9,8 +9,9 @@ function PostList({ posts, title }) {
                 textAlign: 'center',
                 marginTop: '20px'
             }}>{title}</h1>
-            {posts.map(post =>
+            {posts.map((post, index) =>
                 <Post
+                    number = {index + 1}
                     key={post.id}
                     post={post}
                 />
