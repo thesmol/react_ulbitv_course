@@ -1,10 +1,12 @@
 export default function Post() {
+function Post(props) {
+    
     return (
         <div className='post'>
             <div className='post__content'>
-                <strong>1. JavaScript</strong>
+                <strong>{props.post.id}. {props.post.title}</strong>
                 <div>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam necessitatibus quaerat officiis voluptate praesentium sit consequuntur illum nemo qui, deleniti, id earum dolorem nostrum laboriosam ad porro cum vero placeat?
+                    {props.post.body}
                 </div>
             </div>
             <div className="post__buttons">
