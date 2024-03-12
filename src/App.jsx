@@ -1,38 +1,32 @@
 // import Button from '@mui/material/Button';
-import Post from "./components/Post";
+import { useState } from "react";
 import "./styles/App.css";
+import PostList from "./components/PostList";
 
 function App() {
+  const [posts, setPosts] = useState([
+    { id: 1, title: 'JavaScript', body: 'lorem ipsum' },
+    { id: 2, title: 'JavaScript 2', body: 'lorem ipsum' },
+    { id: 3, title: 'JavaScript 3', body: 'lorem ipsum' },
+    { id: 4, title: 'JavaScript 4', body: 'lorem ipsum' },
+  ]);
+
+  const [posts2, setPosts2] = useState([
+    { id: 1, title: 'React', body: 'lorem ipsum' },
+    { id: 2, title: 'React 2', body: 'lorem ipsum' },
+    { id: 3, title: 'React 3', body: 'lorem ipsum' },
+    { id: 4, title: 'React 4', body: 'lorem ipsum' },
+  ]);
 
   return (
     <div className='App'>
-      <Post 
-        post = {{
-          id: 1,
-          title: "JavaScript",
-          body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam necessitatibus quaerat officiis voluptate praesentium sit consequuntur illum nemo qui, deleniti, id earum dolorem nostrum laboriosam ad porro cum vero placeat?"
-        }}
+      <PostList
+        posts={posts}
+        title="Списков постов 1"
       />
-      <Post 
-        post = {{
-          id: 2,
-          title: "JavaScript",
-          body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam necessitatibus quaerat officiis voluptate praesentium sit consequuntur illum nemo qui, deleniti, id earum dolorem nostrum laboriosam ad porro cum vero placeat?"
-        }}
-      />
-      <Post 
-        post = {{
-          id: 3,
-          title: "JavaScript",
-          body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam necessitatibus quaerat officiis voluptate praesentium sit consequuntur illum nemo qui, deleniti, id earum dolorem nostrum laboriosam ad porro cum vero placeat?"
-        }}
-      />
-      <Post 
-        post = {{
-          id: 4,
-          title: "JavaScript",
-          body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam necessitatibus quaerat officiis voluptate praesentium sit consequuntur illum nemo qui, deleniti, id earum dolorem nostrum laboriosam ad porro cum vero placeat?"
-        }}
+      <PostList
+        posts={posts2}
+        title="Списков постов 2"
       />
     </div>
   )
