@@ -1,19 +1,15 @@
 // import Button from '@mui/material/Button';
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import "./styles/App.css";
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
 import PostFilter from "./components/PostFilter";
 import MyModal from "./components/UI/MyModal/MyModal";
 import MyButton from "./components/UI/button/MyButton";
+import { usePost } from "./hooks/usePosts";
 
 function App() {
-  const [posts, setPosts] = useState([
-    { id: 1, title: 'JavaScript', body: 'lorem ipsum' },
-    { id: 2, title: 'BavaScript 2', body: 'Korem ipsum' },
-    { id: 3, title: 'CavaScript 3', body: 'Porem ipsum' },
-    { id: 4, title: 'LavaScript 4', body: 'Morem ipsum' },
-  ]);
+  const [posts, setPosts] = useState([]);
 
   const [filter, setFilter] = useState({
     sort: '',
@@ -22,19 +18,7 @@ function App() {
 
   const [modal, setModal] = useState(false);
 
-  const sortedPosts = useMemo(() => {
-    if (filter.sort) {
-      return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]));
-    }
-    return posts;
-  }, [filter.sort, posts]);
-
-  const sortedAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter(post => post.title
-      .toLowerCase()
-      .includes(filter.query.toLowerCase())
-    )
-  }, [filter.query, sortedPosts]);
+  const sortedAndSearchedPosts = usePost(posts, filter.sort, filter.query);
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
