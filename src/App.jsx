@@ -12,7 +12,7 @@ function App() {
     { id: 3, title: 'CavaScript 3', body: 'Porem ipsum' },
     { id: 4, title: 'LavaScript 4', body: 'Morem ipsum' },
   ]);
-  
+
   const [filter, setFilter] = useState({
     sort: '',
     query: ''
@@ -42,9 +42,7 @@ function App() {
 
   return (
     <div className='App'>
-      <PostForm
-        create={createPost}
-      />
+      <PostForm create={createPost} />
 
       <hr style={{ margin: '15px' }} />
       <PostFilter
@@ -52,17 +50,11 @@ function App() {
         setFilter={setFilter}
       />
 
-      {/*Условная отрисовка */}
-      {sortedAndSearchedPosts.length !== 0
-        ?
-        <PostList
-          posts={sortedAndSearchedPosts}
-          remove={removePost}
-          title="Списков постов 1"
-        />
-        :
-        <h2 style={{ textAlign: 'center', marginTop: '20px' }}>Постов не найдено</h2>
-      }
+      <PostList
+        posts={sortedAndSearchedPosts}
+        remove={removePost}
+        title="Список постов"
+      />
 
     </div>
   )
