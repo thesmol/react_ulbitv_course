@@ -1,0 +1,40 @@
+.myModal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s, visibility 0.5s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.myModalContent {
+    padding: 25px;
+    background-color: whitesmoke;
+    border-radius: 16px;
+    min-width: 50vw;
+    transform: scale(0.5);
+    opacity: 0;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.myModalContent.active {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.myModal.active {
+    opacity: 1;
+    pointer-events: all;
+    z-index: 10;
+}

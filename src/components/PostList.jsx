@@ -1,3 +1,4 @@
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Post from "./Post";
 import PropTypes from 'prop-types';
 
@@ -6,21 +7,30 @@ function PostList({ posts, title, remove }) {
     if (!posts.length) {
         return <h2 style={{ textAlign: 'center', marginTop: '20px' }}>Постов не найдено</h2>
     }
-    
+
     return (
         <div>
             <h1 style={{
                 textAlign: 'center',
                 marginTop: '20px'
             }}>{title}</h1>
-            {posts.map((post, index) =>
-                <Post
-                    remove={remove}
-                    number={index + 1}
-                    key={post.id}
-                    post={post}
-                />
-            )}
+            <TransitionGroup>
+                {posts.map((post, index) =>
+                    <CSSTransition
+                        timeout={300}
+                        classNames="post"
+                        key={post.id}
+                    >
+                        <Post
+                            remove={remove}
+                            number={index + 1}
+                            post={post}
+                        />
+                    </CSSTransition>
+
+                )}
+            </TransitionGroup>
+
         </div>
     )
 }

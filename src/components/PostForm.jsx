@@ -42,7 +42,7 @@ function PostForm({ create }) {
                 type="text"
                 placeholder="Описание поста"
             />
-            <MyButton onClick={handleNewPost}>Добавить пост</MyButton>
+            <MyButton onClick={handleNewPost}>Сохранить</MyButton>
         </form>
     )
 }
