@@ -1,9 +1,10 @@
 // import Button from '@mui/material/Button';
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import "./styles/App.css";
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
 import MySelect from "./components/UI/select/MySelect";
+import MyInput from "./components/UI/input/MyInput";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -14,6 +15,22 @@ function App() {
   ]);
 
   const [selectedSort, setSelectedSort] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const sortedPosts = useMemo(() => {
+    console.log('ОТРАБОТАЛА функция сортировки');
+    if (selectedSort) {
+      return [...posts].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]));
+    }
+    return posts;
+  }, [selectedSort, posts]);
+
+  const sortedAndSearchedPosts = useMemo(() => {
+    return sortedPosts.filter(post => post.title
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase())
+    )
+  }, [searchQuery, sortedPosts]);
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
@@ -25,7 +42,6 @@ function App() {
 
   const sortPosts = (sort) => {
     setSelectedSort(sort);
-    setPosts([...posts].sort((a, b) => a[sort].localeCompare(b[sort])));
   }
 
   return (
@@ -34,22 +50,32 @@ function App() {
         create={createPost}
       />
 
-      <hr style={{margin: '15px'}} />
-      <MySelect
-        value={selectedSort}
-        onChange={sortPosts} 
-        defaultValue="Сортировка по"
-        options = {[
-          {value: 'title', name: 'По заголовку'},
-          {value: 'body', name: 'По описанию'},
-        ]}
-      />
+      <hr style={{ margin: '15px' }} />
+      <div style={{ display: 'flex' }}>
+        <MyInput
+          style={{ marginRight: '30px' }}
+          value={searchQuery}
+          onChange={event => setSearchQuery(event.target.value)}
+          type="text"
+          placeholder="Поиск"
+        />
+        <MySelect
+          value={selectedSort}
+          onChange={sortPosts}
+          defaultValue="Сортировка по"
+          options={[
+            { value: 'title', name: 'По заголовку' },
+            { value: 'body', name: 'По описанию' },
+          ]}
+        />
+      </div>
+
 
       {/*Условная отрисовка */}
-      {posts.length !== 0
+      {sortedAndSearchedPosts.length !== 0
         ?
         <PostList
-          posts={posts}
+          posts={sortedAndSearchedPosts}
           remove={removePost}
           title="Списков постов 1"
         />
