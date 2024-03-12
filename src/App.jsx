@@ -26,11 +26,18 @@ function App() {
         create={createPost}
       />
 
-      <PostList
-        posts={posts}
-        remove={removePost}
-        title="Списков постов 1"
-      />
+      {/*Условная отрисовка */}
+      {posts.length !== 0
+        ?
+        <PostList
+          posts={posts}
+          remove={removePost}
+          title="Списков постов 1"
+        />
+        :
+        <h2 style = {{textAlign: 'center', marginTop: '20px'}}>Постов не найдено</h2>
+      }
+
     </div>
   )
 }
