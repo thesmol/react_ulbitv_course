@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
+import MyButton from './UI/button/MyButton';
 
 function Post(props) {
-    
+
     return (
         <div className='post'>
             <div className='post__content'>
@@ -11,7 +12,9 @@ function Post(props) {
                 </div>
             </div>
             <div className="post__buttons">
-                <button>Удалить</button>
+                <MyButton onClick={() => props.remove(props.post)}>
+                    Удалить
+                </MyButton>
             </div>
         </div>
     )
@@ -24,6 +27,7 @@ Post.propTypes = {
         body: PropTypes.string
     }).isRequired,
     number: PropTypes.number,
+    remove: PropTypes.func,
 };
 
 export default Post;

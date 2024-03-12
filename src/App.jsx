@@ -16,6 +16,10 @@ function App() {
     setPosts([...posts, newPost])
   }
 
+  const removePost = (post) => {
+    setPosts(posts.filter(p => p.id != post.id))
+  }
+
   return (
     <div className='App'>
       <PostForm
@@ -24,6 +28,7 @@ function App() {
 
       <PostList
         posts={posts}
+        remove={removePost}
         title="Списков постов 1"
       />
     </div>

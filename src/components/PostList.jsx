@@ -2,7 +2,7 @@ import Post from "./Post";
 import PropTypes from 'prop-types';
 
 
-function PostList({ posts, title }) {
+function PostList({ posts, title, remove }) {
     return (
         <div>
             <h1 style={{
@@ -11,6 +11,7 @@ function PostList({ posts, title }) {
             }}>{title}</h1>
             {posts.map((post, index) =>
                 <Post
+                    remove = {remove}
                     number = {index + 1}
                     key={post.id}
                     post={post}
@@ -28,7 +29,8 @@ PostList.propTypes = {
             body: PropTypes.string
         })
     ).isRequired,
-    title: PropTypes.string
+    title: PropTypes.string,
+    remove: PropTypes.func,
 };
 
 export default PostList
