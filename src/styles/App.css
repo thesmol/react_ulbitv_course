@@ -23,3 +23,19 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.post__content {
+    max-width: 85%;
+}
+
+.post__content p, .post__content strong {
+    word-wrap: break-word;
+}
+
+.post__buttons {
+    align-self: flex-start;
+}
+
+.post__buttons button:hover {
+    background-color: rgb(248, 182, 182);
+}
