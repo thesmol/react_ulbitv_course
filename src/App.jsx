@@ -20,6 +20,14 @@ function App() {
 
   return (
     <div className='App'>
+        {/* Неуправляемый (неконтролируемый) компонент */}
+        <MyInput
+          ref={bobyInputRef}
+          type="text"
+          placeholder="Описание поста"
+        />
+        <MyButton onClick={handleNewPost}>Добавить пост</MyButton>
+      </form>
       <PostList
         posts={posts}
         title="Списков постов 1"
