@@ -1,6 +1,6 @@
 function Error() {
   return (
-    <h1 style = {{color: "red"}}>
+    <h1 style = {{color: "red"}} className="App">
         Страницы не существует
     </h1>
   )

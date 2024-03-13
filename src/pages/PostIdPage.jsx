@@ -26,7 +26,7 @@ function PostIdPage() {
   }, []);
 
   return (
-    <div>
+    <div className="App">
       <h1>Вы открыли пост с ID = {params.id}</h1>
       {isLoading
         ? <Loader />

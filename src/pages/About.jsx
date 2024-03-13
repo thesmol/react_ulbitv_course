@@ -1,6 +1,6 @@
 function About() {
   return (
-    <h1>
+    <h1 className="App">
         Никакой логики - просто заголовок
     </h1>
   )
