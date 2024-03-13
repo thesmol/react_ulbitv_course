@@ -38,7 +38,7 @@ function App() {
   // подгрузит посты при заходе в приложение
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [page]);
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
@@ -46,6 +46,12 @@ function App() {
 
   const removePost = (post) => {
     setPosts(posts.filter(p => p.id != post.id))
+  }
+
+  const changePage = (number) => {
+    if(number !== page) {
+      setPage(number);
+    }
   }
 
   return (
@@ -115,6 +121,7 @@ function App() {
           <MyButton
             key={number}
             className={page === number ? "page__current page" : "page"}
+            onClick={() => changePage(number)}
           >
             {number.toString()}
           </MyButton>
