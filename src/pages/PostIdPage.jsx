@@ -28,12 +28,12 @@ function PostIdPage() {
   return (
     <div>
       <h1>Вы открыли пост с ID = {params.id}</h1>
-      {!isLoading
+      {isLoading
         ? <Loader />
         : <div>{post.id}. {post.title}</div>
       }
       <h1>Комментарии</h1>
-      {!isComLoading
+      {isComLoading
         ? <Loader />
         : <div>
           {comments.map(comment =>
