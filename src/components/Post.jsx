@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import MyButton from './UI/button/MyButton';
+import { useNavigate } from 'react-router-dom';
 
 function Post(props) {
+    const router = useNavigate();
 
     return (
         <div className='post'>
@@ -13,6 +15,11 @@ function Post(props) {
             </div>
             <div
                 className="post__buttons">
+                <MyButton
+                    onClick={() => router(`/posts/${props.post.id}`)}
+                >
+                    Открыть
+                </MyButton>
                 <MyButton
                     onClick={() => props.remove(props.post)}>
                     Удалить
