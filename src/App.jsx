@@ -11,7 +11,7 @@ import PostService from "./API/PostService";
 import Loader from "./components/UI/loader/Loader";
 import { useFetching } from "./hooks/useFetched";
 import { getPageCount } from "./utils/pages";
-import { usePagination } from "./hooks/usePagination";
+import MyPagination from "./components/UI/pagination/MyPagination";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -25,8 +25,6 @@ function App() {
   const [page, setPage] = useState(1);
 
   const sortedAndSearchedPosts = usePost(posts, filter.sort, filter.query);
-
-  let pagesArray = usePagination(totalPages);
 
   const [fetchPosts, isPostsLoading, postError] = useFetching(async (limit, page) => {
     const response = await PostService.getAll(limit, page);
@@ -119,17 +117,11 @@ function App() {
         />
       }
 
-      <div className="pages__wrapper">
-        {pagesArray.map((number) =>
-          <MyButton
-            key={number}
-            className={page === number ? "page__current page" : "page"}
-            onClick={() => changePage(number)}
-          >
-            {number.toString()}
-          </MyButton>
-        )}
-      </div>
+      <MyPagination 
+        totalPages = {totalPages}
+        page = {page}
+        changePage = {changePage}
+      />
 
     </div>
   )
