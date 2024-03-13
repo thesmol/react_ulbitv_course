@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../../context";
 
 function Navbar() {
-    const {setIsAuth} = useContext(AuthContext);
+    const { setIsAuth } = useContext(AuthContext);
 
     const logout = () => {
         setIsAuth(false);
@@ -20,7 +20,8 @@ function Navbar() {
                 <Link to="/posts">Посты</Link>
             </div>
             <MyButton
-                onClick = {logout}
+                style={{position: 'fixed', right: '35px'}}
+                onClick={logout}
             >
                 Выйти
             </MyButton>
