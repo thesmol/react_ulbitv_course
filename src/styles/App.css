@@ -7,7 +7,8 @@
 
 #root {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .App {
@@ -60,4 +61,31 @@
     transform: translateX(-550px);
     transition: all 300ms ease-in-out;
     opacity: 0;
+}
+
+.navbar {
+    height: 80px;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.navbar__links {
+    margin: auto;
+}
+
+.navbar a {
+    margin: 0px 40px;
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.navbar a:hover {
+    text-decoration: overline;
+    transform: scale(1.5);
 }
