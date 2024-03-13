@@ -9,6 +9,7 @@ import MyButton from "./components/UI/button/MyButton";
 import { usePost } from "./hooks/usePosts";
 import PostService from "./API/PostService";
 import Loader from "./components/UI/loader/Loader";
+import { useFetching } from "./hooks/useFetched";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -17,23 +18,18 @@ function App() {
     query: ''
   });
   const [modal, setModal] = useState(false);
-  const [isPostsLoading, setIsPostsLoading] = useState(false);
 
   const sortedAndSearchedPosts = usePost(posts, filter.sort, filter.query);
+
+  const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
+    const posts = await PostService.getAll();
+    setPosts(posts);
+  })
 
   // подгрузит посты при заходе в приложение
   useEffect(() => {
     fetchPosts();
   }, []);
-
-  async function fetchPosts() {
-    setIsPostsLoading(true);
-    setTimeout(async () => {
-      const posts = await PostService.getAll();
-      setPosts(posts);
-      setIsPostsLoading(false);
-    }, 1000);
-  }
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
@@ -73,9 +69,24 @@ function App() {
         filter={filter}
         setFilter={setFilter}
       />
-      {isPostsLoading
-        ?
+      {postError &&
         <div style = {{
+          display: "flex",
+          flexDirection: 'column',
+          alignItems: "center",
+          border: '1px solid red',
+          borderRadius: '6px',
+          padding: '15px',
+          marginTop: '20px',
+          color: 'red'
+        }}>
+          <h1>Произошла ошибка</h1>
+          <p>${postError}</p>
+        </div>
+      }
+      {!isPostsLoading
+        ?
+        <div style={{
           display: 'flex',
           justifyContent: 'center',
           marginTop: '50px'
@@ -88,7 +99,6 @@ function App() {
           remove={removePost}
           title="Список постов"
         />
-
       }
 
 
