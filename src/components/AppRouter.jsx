@@ -1,7 +1,15 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { privateRouts, publicRoutes } from "../router/routes";
+import { useContext } from "react";
+import { AuthContext } from "../context";
+import Loader from "./UI/loader/Loader";
 
 function AppRouter() {
+    const { isAuth, isLoading } = useContext(AuthContext);
+
+    if (isLoading) {
+        return <Loader />
+    }
 
     return (
         isAuth
@@ -14,6 +22,7 @@ function AppRouter() {
                         element={<route.component />}
                     />
                 )}
+                <Route path="*" element={<Navigate to="posts" replace />} />
             </Routes>
             :
             <Routes>
@@ -24,6 +33,7 @@ function AppRouter() {
                         element={<route.component />}
                     />
                 )}
+                <Route path="*" element={<Navigate to="login" replace />} />
             </Routes>
     );
 }

@@ -9,14 +9,12 @@ function PostIdPage() {
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
 
-  // eslint-disable-next-line no-unused-vars
-  const [fetchPostById, isLoading, error] = useFetching(async (id) => {
+  const [fetchPostById, isLoading] = useFetching(async (id) => {
     const response = await PostService.getById(id);
     setPost(response.data);
   });
 
-  // eslint-disable-next-line no-unused-vars
-  const [fetchComments, isComLoading, comError] = useFetching(async (id) => {
+  const [fetchComments, isComLoading] = useFetching(async (id) => {
     const response = await PostService.getCommentsById(id);
     setComments(response.data);
   });
@@ -24,7 +22,7 @@ function PostIdPage() {
   useEffect(() => {
     fetchPostById(params.id);
     fetchComments(params.id);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -39,7 +37,7 @@ function PostIdPage() {
         ? <Loader />
         : <div>
           {comments.map(comment =>
-            <div key={comment.body} style ={{marginTop: "15px"}}>
+            <div key={comment.id} style={{ marginTop: "15px" }}>
               <h5>{comment.email}</h5>
               <div>{comment.body}</div>
             </div>
