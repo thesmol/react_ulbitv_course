@@ -79,7 +79,7 @@ function App() {
         setFilter={setFilter}
       />
       {postError &&
-        <div style = {{
+        <div style={{
           display: "flex",
           flexDirection: 'column',
           alignItems: "center",
@@ -110,6 +110,16 @@ function App() {
         />
       }
 
+      <div className="pages__wrapper">
+        {pagesArray.map((number) =>
+          <MyButton
+            key={number}
+            className={page === number ? "page__current page" : "page"}
+          >
+            {number.toString()}
+          </MyButton>
+        )}
+      </div>
 
     </div>
   )
