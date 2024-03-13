@@ -2,8 +2,9 @@ import About from "../pages/About";
 import PostIdPage from "../pages/PostIdPage";
 import Posts from "../pages/Posts";
 import Error from "../pages/Error";
+import Login from "../pages/Login";
 
-export const routes = [
+export const privateRouts = [
     {
         path: 'about',
         component: About,
@@ -23,5 +24,16 @@ export const routes = [
     {
         path: '/',
         component: Posts,
+    },
+];
+
+export const publicRoutes = [
+    {
+        path: 'login',
+        component: Login,
+    },
+    {
+        path: '*',
+        component: Login,
     },
 ];
