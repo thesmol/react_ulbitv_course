@@ -25,7 +25,7 @@ function MyPagination({ totalPages, page, changePage }) {
 }
 
 MyPagination.propTypes = {
-    totalPages: PropTypes.array,
+    totalPages: PropTypes.number,
     page: PropTypes.number,
     changePage: PropTypes.func,
 };
