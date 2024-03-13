@@ -13,7 +13,7 @@ function Login() {
     }
 
     return (
-        <div>
+        <div className="App">
             <h1>Страница для логина</h1>
             <form onSubmit={login}>
                 <MyInput type='text' placeholder="логин" />

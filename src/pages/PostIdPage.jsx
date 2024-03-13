@@ -26,14 +26,14 @@ function PostIdPage() {
   }, []);
 
   return (
-    <div>
+    <div className="App">
       <h1>Вы открыли пост с ID = {params.id}</h1>
-      {!isLoading
+      {isLoading
         ? <Loader />
         : <div>{post.id}. {post.title}</div>
       }
       <h1>Комментарии</h1>
-      {!isComLoading
+      {isComLoading
         ? <Loader />
         : <div>
           {comments.map(comment =>
