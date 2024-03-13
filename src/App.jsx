@@ -28,7 +28,7 @@ function App() {
 
   let pagesArray = usePagination(totalPages);
 
-  const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
+  const [fetchPosts, isPostsLoading, postError] = useFetching(async (limit, page) => {
     const response = await PostService.getAll(limit, page);
     setPosts(response.data);
     const totalCount = response.headers['x-total-count'];
@@ -37,11 +37,12 @@ function App() {
 
   // подгрузит посты при заходе в приложение
   useEffect(() => {
-    fetchPosts();
-  }, [page]);
+    fetchPosts(limit, page);
+  }, []);
 
   const createPost = (newPost) => {
-    setPosts([...posts, newPost])
+    setPosts([...posts, newPost]);
+    setModal(false);
   }
 
   const removePost = (post) => {
@@ -49,10 +50,12 @@ function App() {
   }
 
   const changePage = (number) => {
-    if(number !== page) {
+    if (number !== page) {
       setPage(number);
+      fetchPosts(limit, number);
     }
   }
+
 
   return (
     <div className='App'>
