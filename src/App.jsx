@@ -9,6 +9,9 @@ import MyButton from "./components/UI/button/MyButton";
 import { usePost } from "./hooks/usePosts";
 import PostService from "./API/PostService";
 import Loader from "./components/UI/loader/Loader";
+import { useFetching } from "./hooks/useFetched";
+import { getPageCount } from "./utils/pages";
+import MyPagination from "./components/UI/pagination/MyPagination";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -17,31 +20,40 @@ function App() {
     query: ''
   });
   const [modal, setModal] = useState(false);
-  const [isPostsLoading, setIsPostsLoading] = useState(false);
+  const [totalPages, setTotalPages] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
 
   const sortedAndSearchedPosts = usePost(posts, filter.sort, filter.query);
 
+  const [fetchPosts, isPostsLoading, postError] = useFetching(async (limit, page) => {
+    const response = await PostService.getAll(limit, page);
+    setPosts(response.data);
+    const totalCount = response.headers['x-total-count'];
+    setTotalPages(getPageCount(totalCount, limit));
+  });
+
   // подгрузит посты при заходе в приложение
   useEffect(() => {
-    fetchPosts();
+    fetchPosts(limit, page);
   }, []);
 
-  async function fetchPosts() {
-    setIsPostsLoading(true);
-    setTimeout(async () => {
-      const posts = await PostService.getAll();
-      setPosts(posts);
-      setIsPostsLoading(false);
-    }, 1000);
-  }
-
   const createPost = (newPost) => {
-    setPosts([...posts, newPost])
+    setPosts([...posts, newPost]);
+    setModal(false);
   }
 
   const removePost = (post) => {
     setPosts(posts.filter(p => p.id != post.id))
   }
+
+  const changePage = (number) => {
+    if (number !== page) {
+      setPage(number);
+      fetchPosts(limit, number);
+    }
+  }
+
 
   return (
     <div className='App'>
@@ -73,9 +85,24 @@ function App() {
         filter={filter}
         setFilter={setFilter}
       />
-      {isPostsLoading
+      {postError &&
+        <div style={{
+          display: "flex",
+          flexDirection: 'column',
+          alignItems: "center",
+          border: '1px solid red',
+          borderRadius: '6px',
+          padding: '15px',
+          marginTop: '20px',
+          color: 'red'
+        }}>
+          <h1>Произошла ошибка</h1>
+          <p>${postError}</p>
+        </div>
+      }
+      {!isPostsLoading
         ?
-        <div style = {{
+        <div style={{
           display: 'flex',
           justifyContent: 'center',
           marginTop: '50px'
@@ -88,9 +115,13 @@ function App() {
           remove={removePost}
           title="Список постов"
         />
-
       }
 
+      <MyPagination 
+        totalPages = {totalPages}
+        page = {page}
+        changePage = {changePage}
+      />
 
     </div>
   )
